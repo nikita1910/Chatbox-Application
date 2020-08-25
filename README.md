@@ -1,3 +1,3 @@
-# Project 2
+# Chatbox-Application
 
-Web Programming with Python and JavaScript
+Group and personal messaging application
