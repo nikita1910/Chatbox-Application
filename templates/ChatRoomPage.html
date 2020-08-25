@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Chatbox</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='style/StyleSheet.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='bootstrap-4.4.1-dist/css/bootstrap.min.css') }}">
+
+    <script src="{{ url_for('static',filename='ajax/libs/socket.io/1.3.6/socket.io.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='jquery/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='ajax/libs/popper.js/1.16.0/umd/popper.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='bootstrap-4.4.1-dist/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='mainScript/mainScript.js') }}"></script>
+    <script src="{{ url_for('static',filename='bootstrap-4.4.1-dist/js/jquery.dataTables.min.js') }}"></script>
+
+</head>
+<body>
+<form action="{{ url_for('home')}}" method="POST">
+   <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+      <div>
+         <img class=" css-chat-icon" src="{{ url_for('static',filename='image/chat-icon.png') }}">
+         <h4 class="navbar-brand">chatbox</h4>
+      </div>
+      <div class="css-mobileReponsive-notification" style="display:none;">
+         <img class="css-notification-icon" id="idNotification1" src="{{ url_for('static',filename='image/img-notification.png') }}">
+         <div class="circle green css-notification-green"  style="display:none;"></div>
+      </div>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+         <ul class="navbar-nav">
+            <li class="nav-item">
+               <a class="nav-link css-about-text" href="#">About</a>
+            </li>
+            <li class="nav-item">
+               <button type="submit" id="btnLogout" class="nav-link btn css-btn-logout btn-primary">Logout</button>
+               <input type="text" id="txtUserID" name="userid" style="display:none;" value="{{userid}}">
+            </li>
+         </ul>
+      </div>
+      <div class="css-NonmobileReponsive-notification">
+         <img class="css-notification-icon" id="idNotification" src="{{ url_for('static',filename='image/img-notification.png') }}">
+         <div class="circle green css-notification-green"  style="display:none;"></div>
+      </div>
+   </nav>
+</form>
+<div Class="container-fluid">
+   <div class="row css-icon-navbar" style="display:none">
+      <div class="row row-height-space">
+      </div>
+      <div >
+         <img class="css-online-mem-icon css-icon-margin" id="idOnlinePpl" src="{{ url_for('static',filename='image/img-online-ppl.png') }}">
+         <img class="css-msg-icon css-icon-margin" id="idCheckMsg" src="{{ url_for('static',filename='image/img-msg-sum.png') }}">
+         <img class="css-msg-icon css-icon-margin" id="idConnectedMember" src="{{ url_for('static',filename='image/img-grp.png') }}">
+      </div>
+      <div class="row row-height-space">
+      </div>
+   </div>
+   <div class="row content">
+      <div class="col-sm-2 col-12 css-left-div">
+         <div class="row row-height-space">
+         </div>
+         <div class="row css-upper-row">
+            <div class="row row-height-space">
+            </div>
+            <div class="col-sm-1 col-1">
+            </div>
+            <div class="col-sm-2 col-1">
+               <img class="css-profile-icon" src="{{ url_for('static',filename='image/img-profile.png') }}">
+            </div>
+            <div class="col-sm-9 col-8">
+               <h6 id="lblName" class="css-name">{{ name }}</h6>
+               <label id="lblOnline" style="display:none;">{{ isOnline }}</label>
+            </div>
+         </div>
+         <div class="row row-height-space">
+         </div>
+         <div class="row row-height-space">
+         </div>
+         <div class="row">
+            <div class="">
+               <!--<img class="css-online-icon" style="margin-left:5px;"
+                  src="{{ url_for('static',filename='image/img-online.png') }}">-->
+            </div>
+            <div class="col-sm-10 col-8">
+               <h6 class="css-online">Online</h6>
+            </div>
+         </div>
+         <div id="mainOnlineDiv">
+         </div>
+         <div class="row row-height-space">
+         </div>
+         <div class="row row-height-space">
+         </div>
+         <div class="row">
+            <div class="">
+            </div>
+            <div class="col-sm-9 col-7">
+               <h6 style="line-height:2 !important;">Channels</h6>
+            </div>
+            <div class="col-sm-2  col-2">
+               <img class="css-grp-icon" id="idCreateChannel"
+                  src="{{ url_for('static',filename='image/img-create.png') }}">
+            </div>
+         </div>
+         <div id="idChannelList">
+            {% for x in channelList %}
+            <div class="row">
+               <div class="col-sm-1 col-1">
+               </div>
+               <div class="col-sm-9 col-8">
+                  <a id="idUserChannel" class="css-userChannel" data-toggle="tooltip" data-placement="top"
+                     title="Select">{{x}}</a>
+               </div>
+            </div>
+            {% endfor %}
+         </div>
+      </div>
+      <div class="col-sm-8 col-12 css-middle-div">
+         <div class="row row-height-space">
+         </div>
+         <div class="row css-upper-row css-msg-sum">
+            <div class="col-sm-4 ">
+            </div>
+            <div class="col-sm-4 text-center">
+               <img class="css-msg-icon " src="{{ url_for('static',filename='image/img-msg-sum.png') }}">
+            </div>
+            <div class="col-sm-4">
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-sm-12 col-12 mainMsgDiv scrollable" id="msgs">
+               <div class="alert alert-success text-center css-warning-msg">
+                  <p class="css-msg-p">
+                     <strong>Welcome to chatbox!</strong><br /> 
+                     Start your chat by selecting channel or your personal connection.<br /><br /><br />
+                     <img class=" css-chat-icon-msg" src="{{ url_for('static',filename='image/chat-icon.png') }}">
+                  </p>
+               </div>
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-sm-12 col-12">
+               <div class="form-group css-div-textarea">
+                  <textarea class="form-control" rows="2" id="txtMsg" placeholder="Type a message..."></textarea>
+               </div>
+               <div>
+                  <button type="submit" id="btnSend" class="css-btn-send"><img
+                     src="{{ url_for('static',filename='image/img-send.png') }}" style="width:40px;">
+                  </button>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="col-sm-2 col-12 css-right-div">
+         <div class="row row-height-space">
+         </div>
+         <div class="row css-upper-row">
+            <div class="col-sm-12 col-12">
+               <label id="idSelectedChannelName"></label>
+            </div>
+         </div>
+         <div class="row" id="idlblChannelMem" style="display:none;">
+            <div class="row row-height-space">
+            </div>
+            <div class="col-sm-12 col-12">
+               <h6>Channel Members</h6>
+            </div>
+         </div>
+         <div class="row" id="channelUserNames">
+         </div>
+         <div class="row row-height-space">
+         </div>
+         <div class="row">
+            <div class="col-sm-12 col-12">
+               <h6>Personal Connections</h6>
+            </div>
+         </div>
+         {% for x in members %}
+         <div class="row">
+            {% if x != name %}
+            <div class="col-sm-1 col-1">
+            </div>
+            <div class="col-sm-10 col-10">
+               <a id="idConnectedMemberList" class="css-txt-member-name" data-toggle="tooltip" data-placement="top"
+                  title="Select">{{x}}</a>
+            </div>
+            {% endif %}
+         </div>
+         {% endfor %}
+      </div>
+   </div>
+</div>
+<!-- Modal for adding new channel-->
+<form action="{{ url_for('chat_back')}}" method="POST">
+   <div id="myModal" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+         <div style="float:left;margin-bottom: 5px;">
+            <span class="close" id="idSpanAddChannels">x</span>
+         </div>
+         <div class="container-fluid">
+            <div class="row row-height-space">
+            </div>
+            <div class="row">
+               <div class="col-sm-12 col-12">
+                  <h6>Suggested channels</h6>
+               </div>
+            </div>
+            <div id="idOtherList">
+               {% for x in otherChannelList %}
+               <div class="row">
+                  <div class="col-sm-1 col-1">
+                  </div>
+                  <div class="col-sm-8 col-8">
+                     <a id="idOtherChannelList" class="css-suggested-channels"data-toggle="tooltip" data-placement="top"
+                        title="Select">{{x}}</a>
+                  </div>
+               </div>
+               {% endfor %}
+            </div>
+            <div class="row row-height-space">
+            </div>
+            <div class="row">
+               <div class="col-sm-7 col-7">
+                  <div class="form-group">
+                     <input type="text" class="form-control" name="newChannel" id="idChannelName">
+                  </div>
+               </div>
+               <div class="col-sm-5 col-5">
+                  <button type="submit" id="btnAdd" class="css-btnAdd" data-toggle="tooltip" data-placement="top"
+                     title="Add"><img
+                     src="{{ url_for('static',filename='Image/img-add.png') }}" style="width:30px;"></button>
+                  <input type="text" name="userid" style="display:none;" value="{{userid}}">
+                  <input type="text" name="name" style="display:none;" value="{{name}}">
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</form>
+<div id="myModalNotification" class="css-notification-modal" style="display:none;">
+   <!-- Modal content -->
+   <div class="modal-content">
+      <div style="float:left;margin-bottom: 5px;">
+         <span class="close" id="idSpanNotification">x</span>
+      </div>
+      <div class="container-fluid">
+         <div id="idNotificationContainer">
+            {% if notifications != '' %}
+            {% for x in notifications %}
+            <div class="row css-notification-content">
+               <div class="col-sm-12 col-12">
+                  {% if x[3] == "G" %}
+                  <label>{{x[2]}}</label>
+                  {% else %}
+                  <label>{{x[1]}}</label>
+                  {% endif %}
+               </div>
+               <div class="col-sm-12 col-12">
+                  <label>{{x[0]}}</label>
+               </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <div class="row css-notification-content">
+               <div class="col-sm-12 col-12">
+                  <label>No new notification found.</label>
+               </div>
+            </div>
+            {% endif %}
+         </div>
+      </div>
+   </div>
+</div>
+<footer class="jumbotron text-center">
+</footer>
+
+
+</body>
+<script type="text/javascript">
+//Global flag for chatting mode(Group or personal chat)
+let chatMode = ""
+debugger;
+document.addEventListener('DOMContentLoaded', () => {
+try{
+    console.log("chatroom DOMContent Loaded");
+
+        
+        //Connect to websocket
+        var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
+
+        //Online Socket functionality
+        let strOnline = document.getElementById("lblOnline").innerHTML
+        socket.on('connect', () => {
+            if (strOnline == "online") {
+                const onlineUser = document.getElementById("lblName").innerHTML;
+                socket.emit('submit status', {
+                    'onlineUser': onlineUser
+                });
+            }
+        });
+
+        socket.on('announce status', data => {
+
+            let arrayOnlineUser = [];
+            arrayOnlineUser = `${data.onlineUser}`.split(",");
+            $("#mainOnlineDiv").empty();
+
+
+
+            for (let i = 0; i < arrayOnlineUser.length; i++) {
+
+                let j = Math.floor(Math.random() * Math.floor(10000000000))
+                if (arrayOnlineUser[i] != document.getElementById("lblName").innerHTML) {
+
+                    const div = document.createElement('div');
+                    const div1 = document.createElement('div');
+                    const div2 = document.createElement('div');
+
+                    const h6 = document.createElement('h6');
+
+                    div.className = "row";
+
+                    div.id = 'idrowOnline' + j;
+
+                    div2.id = 'onlineDiv' + j;
+
+                    div2.className = "col-sm-8 col-9";
+
+                    div1.className = "col-sm-1 col-1";
+
+
+                    h6.innerHTML = arrayOnlineUser[i];
+
+
+                    //alert( p.innerHTML);
+                    document.querySelector('#mainOnlineDiv').append(div);
+                    document.querySelector('#idrowOnline' + j).append(div1);
+                    document.querySelector('#idrowOnline' + j).append(div2);
+                    document.querySelector('#onlineDiv' + j).append(h6);
+
+                }
+            }
+            strOnline = "";
+
+        });
+
+      
+		 //Messaging Socket functionality
+        socket.on('connect', () => {
+            const button = document.querySelector("#btnSend");
+
+            button.addEventListener('click', function(event) {
+                let selection = "";
+                let notification = "";
+                if (chatMode == "G") {
+
+                    selection = document.getElementById("lblName").innerHTML + "|*|" + document.getElementById("txtMsg").value + "|*|" + document.getElementById("idSelectedChannelName").innerHTML + "|*|" + getDate() + "|*|" + getTime() + "|*|" + chatMode;
+
+                } else {
+                    let strSender = document.getElementById("lblName").innerHTML.split(" ");
+                    let strReceiver = document.getElementById("idSelectedChannelName").innerHTML.split(" ");
+                    selection = document.getElementById("lblName").innerHTML + "|*|" + document.getElementById("txtMsg").value + "|*|" + strSender[0] + "-" + strReceiver[0] + "|*|" + getDate() + "|*|" + getTime() + "|*|" + chatMode;
+
+                }
+
+                socket.emit('send message', {
+                    'selection': selection,
+                    'notification': document.getElementById("idSelectedChannelName").innerHTML
+                });
+
+            });
+        });
+
+        socket.on('announce message', data => {
+		
+
+            let channelArr = {{ channelList | tojson}};
+
+
+            let str = `${data.selection}`;
+            str = str.split("|*|");
+            if (str[5] == "G") {
+                if (str[2].trim().toString() == document.getElementById("idSelectedChannelName").innerHTML.trim().toString()) {
+                    //$("#msgs").empty();
+                    buildChatBox(str[0], str[1], str[3], str[4]);
+                }
+
+
+                if (`${data.notification}`.trim().toString() != document.getElementById("idSelectedChannelName").innerHTML.trim().toString()) {
+
+                    for (let i = 0; i < channelArr.length; i++) {
+
+                        if (`${data.notification}`.trim().toString() == channelArr[i]) {
+
+                            buildNotification(str[0], str[1], `${data.notification}`.trim().toString(), str[5]);
+                        }
+                    }
+                }
+
+
+            } else {
+                let strReceivedChannel = str[2].split("-");
+                let strSelectedChannel = document.getElementById("idSelectedChannelName").innerHTML.trim().split(" ");
+                let strSender = document.getElementById("lblName").innerHTML.split(" ");
+                //alert(strSelectedChannel[0]+"-"+strSender[0])
+                if (str[2] == strSelectedChannel[0] + "-" + strSender[0] || str[2] == strSender[0] + "-" + strSelectedChannel[0]) {
+                    //$("#msgs").empty();
+                    buildChatBox(str[0], str[1], str[3], str[4]);
+
+                }
+                if (`${data.notification}`.trim().toString() != document.getElementById("idSelectedChannelName").innerHTML.trim().toString()) {
+                    if (`${data.notification}`.trim().toString() == document.getElementById("lblName").innerHTML.trim().toString()) {
+                        buildNotification(str[0], str[1], `${data.notification}`.trim().toString(), str[5]);
+                    }
+                }
+
+            }
+
+        });
+		
+		const idCreateChannel = document.querySelector("#idCreateChannel");
+        socket.on('connect', () => {
+            idCreateChannel.addEventListener('click', function(event) {
+
+                modal.style.display = "block";
+
+            });
+        });
+
+        document.querySelectorAll('#idOtherChannelList').forEach(function(el) {
+            el.addEventListener(
+                'click',
+                function() {
+
+                    document.getElementById("idChannelName").value = el.innerHTML;
+
+                }
+            )
+        });
+		
+		socket.on('connect', () => {
+            document.querySelectorAll('#idUserChannel').forEach(function(el) {
+                el.addEventListener(
+                    'click',
+                    function() {
+                        chatMode = "G";
+                        document.getElementById("idSelectedChannelName").innerHTML = el.innerHTML;
+                        let channelName = el.innerHTML;
+                        socket.emit('submit channelName', {
+                            'channelName': channelName,
+                            'chatMode': chatMode
+                        });
+
+
+                    }
+                )
+            });
+
+        });
+
+        socket.on('connect', () => {
+		
+            document.querySelectorAll('#idConnectedMemberList').forEach(function(el) {
+                el.addEventListener(
+                    'click',
+                    function() {
+                        chatMode = "P";
+                        document.getElementById("idSelectedChannelName").innerHTML = el.innerHTML;
+                        let channelName = el.innerHTML.split(" ");
+                        let strSender = document.getElementById("lblName").innerHTML.split(" ");
+
+
+                        socket.emit('submit channelName', {
+                            'channelName': strSender[0] + "-" + channelName[0],
+                            'chatMode': chatMode
+                        });
+
+
+                    }
+                )
+            });
+
+        });
+		
+		socket.on('announce channelUsers', data => {
+            let channelUsers = [];
+            channelUsers = `${data.channelUser}`.split(",");
+
+            $("#channelUserNames").empty();
+
+
+            for (let i = 0; i < channelUsers.length; i++) {
+
+                if (chatMode == "G") {
+                    $('#idlblChannelMem').attr("style", "display: block");
+
+                }
+
+
+                if (document.getElementById("idSelectedChannelName").innerHTML != "") {
+
+
+                    if (channelUsers[i].trim().toString() != document.getElementById("lblName").innerHTML.trim().toString()) {
+                        let j = Math.floor(Math.random() * Math.floor(10000000000));
+                        const div = document.createElement('div');
+                        const div1 = document.createElement('div');
+                        const h6 = document.createElement('h6');
+                        div1.id = "channelUser" + j;
+                        div.className = "col-sm-1 ";
+                        div1.className = "col-sm-10";
+                        h6.className = "css-channelUsers"
+
+                        h6.innerHTML = channelUsers[i];
+
+                        document.querySelector('#channelUserNames').append(div);
+                        document.querySelector('#channelUserNames').append(div1);
+                        document.querySelector('#channelUser' + j).append(h6)
+                    }
+                }
+
+            }
+
+
+            formatChatBoxDetails(`${data.channelMsgUser}`, `${data.channelMsg}`, `${data.ChannelName}`, `${data.date}`, `${data.time}`);
+
+        });
+		
+		const selectNotification = document.querySelector("#idNotification");
+        selectNotification.addEventListener('click', function(event) {
+				
+                $('.css-notification-modal').attr("style", "display: block !important");
+                $('.css-notification-green').attr("style", "display: none");
+
+            });
+			
+		const selectNotification1 = document.querySelector("#idNotification1");
+        selectNotification1.addEventListener('click', function(event) {
+				
+                $('.css-notification-modal').attr("style", "display: block !important");
+                $('.css-notification-green').attr("style", "display: none");
+
+            });
+       
+		
+		//To show notification green icon
+        let notificationArr = {{notifications | tojson}};
+        if (notificationArr != "") {
+            $('.css-notification-green').attr("style", "display: block");
+        }
+		
+		
+		
+		 } catch (err) {
+        console.log("Error occurred in page load.\t" + err);
+    }
+
+
+});
+
+formatChatBoxDetails = (user, msg, channelName, date1, time1) => {
+	try{
+    let userNames = user.split(","),
+        userMsg = msg.split(","),
+        date2 = date1.split(","),
+        time2 = time1.split(",");
+
+    if (user != "") {
+        if (chatMode == "G") {
+            if (channelName.trim().toString() == document.getElementById("idSelectedChannelName").innerHTML.trim().toString()) {
+                $("#msgs").empty();
+                for (let j = 0; j < userNames.length; j++) {
+                    buildChatBox(userNames[j], userMsg[j], date2[j], time2[j]);
+                }
+            }
+        } else {
+            let strReceivedChannel = channelName.split("-");
+            let strSelectedChannel = document.getElementById("idSelectedChannelName").innerHTML.trim().split(" ");
+            if (strReceivedChannel[0] == strSelectedChannel[0] || strReceivedChannel[1] == strSelectedChannel[0]) {
+                $("#msgs").empty();
+                for (let j = 0; j < userNames.length; j++) {
+                    buildChatBox(userNames[j], userMsg[j], date2[j], time2[j]);
+                }
+            }
+
+        }
+
+    }
+	}catch (err) {
+        console.log("Error occurred in formatChatBoxDetails().\t" + err);
+    }
+}
+
+buildChatBox = (name, msg, date, time) => {
+try{
+    let i = Math.floor(Math.random() * Math.floor(10000000000));
+    const div = document.createElement('div');
+    const div1 = document.createElement('div');
+    const div2 = document.createElement('div');
+    const h1 = document.createElement('h6');
+    const h2 = document.createElement('h6');
+    const h3 = document.createElement('h6');
+    const h4 = document.createElement('h6');
+    div.id = "subDiv" + i;
+    div1.id = "subDivLeft" + i;
+    div2.id = "subDivRight" + i;
+    div1.className = "css-subDivLeft";
+    div2.className = "css-subDivRight";
+    h1.className = "css-msg-text";
+    h2.className = "css-msg-text";
+    h3.className = "css-msg-text";
+    h4.className = "css-msg-text";
+
+
+    if (name.trim().toString() == document.getElementById("lblName").innerHTML.trim().toString()) {
+        div.className = "row col-sm-12 col-12  css-out-msg"
+        name = "You";
+    } else {
+        div.className = "row col-sm-12 col-12 css-in-msg"
+
+    }
+    h1.innerHTML = name + ":";
+    h2.innerHTML = msg;
+    h3.innerHTML = time;
+    h4.innerHTML = date;
+
+
+    document.querySelector('#msgs').append(div);
+    document.querySelector('#subDiv' + i).append(div1);
+    document.querySelector('#subDivLeft' + i).append(h1);
+    document.querySelector('#subDivLeft' + i).append(h2);
+    document.querySelector('#subDiv' + i).append(div2);
+    document.querySelector('#subDivRight' + i).append(h3);
+    document.querySelector('#subDivRight' + i).append(h4);
+
+
+    var objDiv = document.getElementById("msgs");
+    objDiv.scrollTop = objDiv.scrollHeight;
+
+    document.getElementById("txtMsg").value = ""
+	}
+	catch (err) {
+        console.log("Error occurred in buildChatBox().\t" + err);
+    }
+	
+}
+
+buildNotification = (sender, msg, grp, mode) => {
+    try {
+
+        $('.css-notification-green').attr("style", "display: block");
+
+        let i = Math.floor(Math.random() * Math.floor(10000000000));
+        const div = document.createElement("div");
+        const div1 = document.createElement("div");
+        const label = document.createElement("label");
+        const label1 = document.createElement("label");
+		const br = document.createElement("br");
+        div.id = "idOuterDiv" + i;
+        div1.id = "idInnerDiv" + i;
+        div.className = "row css-notification-content";
+        div1.className = "col-sm-12 col-12";
+
+        if (mode == "G") {
+            label.innerHTML = grp;
+        } else {
+            label.innerHTML = sender;
+        }
+        label1.innerHTML = msg;
+
+
+        document.querySelector('#idNotificationContainer').append(div);
+        document.querySelector('#idOuterDiv' + i).append(div1);
+        document.querySelector('#idInnerDiv' + i).append(label);
+		document.querySelector('#idInnerDiv' + i).append(br);
+
+        document.querySelector('#idOuterDiv' + i).append(div1);
+        document.querySelector('#idInnerDiv' + i).append(label1);
+
+    } catch (err) {
+        console.log("Error occurred in buildNotification().\t" + err);
+    }
+
+}
+
+const idOnlinePpl = document.querySelector("#idOnlinePpl");
+idOnlinePpl.addEventListener('click', function(event) {
+
+    $('.css-left-div').attr("style", "display: block !important");
+    $('.css-middle-div').css('display', 'none');
+    $('.css-right-div').css('display', 'none');
+
+});
+
+const idMsg = document.querySelector("#idCheckMsg");
+idMsg.addEventListener('click', function(event) {
+    $('.css-left-div').css('display', 'none');
+    $('.css-middle-div').attr("style", "display: block !important");
+    $('.css-right-div').css('display', 'none');
+});
+
+const idConnectedMember = document.querySelector("#idConnectedMember");
+idConnectedMember.addEventListener('click', function(event) {
+    $('.css-left-div').css('display', 'none');
+    $('.css-middle-div').css('display', 'none');
+    $('.css-right-div').attr("style", "display: block !important");
+});
+
+// Get the modal - Add channel
+let modal = document.getElementById("myModal");
+let span = document.getElementById("idSpanAddChannels");
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// Get the modal - Notification
+let modalNotification = document.getElementById("myModalNotification");
+let spanNotification = document.getElementById("idSpanNotification");
+spanNotification.onclick = function() {
+    $("#idNotificationContainer").empty();
+    $('.css-notification-modal').attr("style", "display: none");
+
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+        $('.css-notification-modal').attr("style", "display: none");
+        $("#idNotificationContainer").empty();
+
+    }
+}
+
+
+
+
+
+
+</script>
+
+</html>

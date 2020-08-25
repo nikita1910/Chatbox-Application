@@ -1,0 +1,130 @@
+{% extends "ApplicationLayout.html" %}
+
+{% block body %}
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <div>
+        <img class=" css-chat-icon" src="{{ url_for('static',filename='image/chat-icon.png') }}">
+        <h4 class="navbar-brand">chatbox</h4>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('create_account') }}">Sign up</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div Class="container-fluid">
+
+    <div class="row row-height-space">
+    </div>
+    <div class="row row-height-space">
+    </div>
+
+    <div class="row content">
+
+        <div class="col-sm-4 col-1">
+        </div>
+
+        <div class="col-sm-4 col-10 css-border ">
+            <div class="row row-height-space">
+            </div>
+
+
+            <div class="row">
+                <div class="col-sm-1 ">
+                </div>
+                <div class="col-sm-10 col-10">
+                    <h4>Create account</h4>
+                </div>
+                <div class="col-sm-1">
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-sm-1 ">
+                </div>
+
+
+                <div class="col-sm-10">
+
+                    <form action="{{ url_for('save_account')}}" method="POST">
+
+                        <div class="form-group">
+                            <label>Name:</label>
+                            <input type="text" class="form-control" name="name">
+                        </div>
+
+                        <div class="form-group">
+                            <label>User ID:</label>
+                            <input type="text" class="form-control" name="userId">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pwd">Password:</label>
+                            <input type="password" class="form-control" name="password" id="pwd">
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+
+                    <div class="row row-height-space">
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-1">
+                        </div>
+                        <div class="col-sm-10 col-12 text-center">
+                            {% if msg != '' %}
+                            <label id="lblError" class="text-center" style="color:#248f24">{{ msg }} </label>
+                            {% endif %}
+                        </div>
+                        <div class="col-sm-1">
+                        </div>
+                    </div>
+
+
+                    <div class="row row-height-space">
+                    </div>
+
+                </div>
+
+
+                <div class="col-sm-1 ">
+                </div>
+
+
+                <div class="row row-height-space">
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="col-sm-4 col-1">
+        </div>
+
+
+    </div>
+
+    <div class="row row-height-space">
+    </div>
+    <div class="row row-height-space">
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,500 @@
+html,
+body {
+	width: 100%;
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+	overflow-x: hidden;
+	color: #2e3438 !important;
+}
+
+.row-height-space {
+	height: 25px;
+}
+
+
+/* On small screens, set height to 'auto' for grid*/
+
+@media screen and (max-width: 768px) {
+	.row.content {
+		height: auto;
+	}
+	h1 {
+		font-size: 8vw !important;
+	}
+	h2 {
+		font-size: 7vw !important;
+	}
+	h3 {
+		font-size: 6vw !important;
+	}
+	h4 {
+		font-size: 5vw !important;
+	}
+	h5,
+	label,
+	input,
+	td,
+	th {
+		font-size: 4vw !important;
+	}
+	h6,
+	a,
+	button {
+		font-size: 3vw !important;
+	}
+	.row-height-space {
+		height: 20px !important;
+	}
+	.css-login-div-height {
+		height: 300px !important;
+	}
+	.css-middle-div {
+		display: none !important;
+	}
+	.css-right-div {
+		display: none !important;
+	}
+	.css-chat-summary {
+		line-height: 3.5 !important;
+	}
+	.scrollable {
+		height: 450px !important;
+	}
+	.css-div-textarea {
+		width: 79% !important;
+	}
+	.css-txt-member-name {
+		line-height: 2.5;
+	}
+	.css-subDivLeft {
+		width: 80% !important;
+	}
+	.css-subDivRight {
+		width: 20% !important;
+	}
+	.css-name,
+	.css-online {
+		line-height: 2 !important;
+	}
+	.css-icon-navbar {
+		display: block !important;
+		border-bottom: 1px solid #e6e6e6;
+	}
+	.css-msg-sum {
+		display: none !important;
+	}
+	.css-warning-msg {
+		margin-left: 0px !important;
+		margin-top: 2rem !important;
+		width: 100% !important;
+	}
+	.modal-content {
+		width: 90% !important;
+	}
+	.css-mobileReponsive-notification {
+		display: inline !important;
+		margin-left: 7rem !important;
+	}
+	.css-NonmobileReponsive-notification {
+		display: none !important;
+	}
+}
+
+.css-icon-margin {
+	margin-left: 4rem;
+}
+
+.css-msg-sum {
+	display: inline;
+}
+
+.css-name,
+.css-online {
+	line-height: 1.7;
+}
+
+.css-chat-icon {
+	width: 35px;
+}
+
+.css-online-icon {
+	width: 13px;
+}
+
+.css-notification-icon {
+	width: 20px;
+	cursor: pointer;
+}
+
+.css-border {
+	border: 1px solid #ccc;
+	border-radius: 3px;
+}
+
+.btn-primary {
+	background-color: #343A40 !important;
+	border-color: #343A40 !important;
+}
+
+.css-login-div-height {
+	height: 350px;
+}
+
+.navbar-brand {
+	padding-bottom: 0 !important;
+}
+
+.css-left-div {
+	background-color: #f2f2f2;
+	display: block;
+}
+
+.css-right-div {
+	border-left: 1px solid #e6e6e6;
+}
+
+.css-out-msg {
+	background-color: hsla(120, 100%, 75%, 0.3);
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	margin-bottom: 5px;
+	padding: 4px;
+	margin-left:0px !important;
+	margin-right:0px !important;
+}
+
+.css-in-msg {
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	margin-bottom: 5px;
+	padding: 4px;
+	background-color: rgba(242, 242, 242, 0.3);
+	margin-left:0px !important;
+	margin-right:0px !important;
+}
+
+.scrollable {
+	height: 500px;
+	overflow-y: scroll;
+}
+
+.scrollable::-webkit-scrollbar {
+	display: none;
+}
+
+.css-upper-row {
+	height: 50px;
+	border-bottom: 1px solid #e6e6e6;
+}
+
+.css-online-mem-icon {
+	width: 40px;
+}
+
+.css-msg-icon {
+	width: 35px;
+}
+
+.css-member-icon {
+	width: 30px;
+}
+
+.css-profile-icon {
+	width: 30px;
+}
+
+.css-grp-icon {
+	width: 30px;
+	cursor: pointer;
+}
+
+.css-subDivLeft {
+	float: left;
+	width: 90%;
+}
+
+.css-subDivRight {
+	float: right;
+	width: 10%;
+	text-align: right;
+}
+
+.css-msg-text {
+	font-size: 0.7rem !important;
+	margin-bottom: 1px !important;
+}
+
+.css-btn-send {
+	border: none;
+	background-color: #fff;
+	margin-top: 8px;
+	margin-left: 15px;
+}
+
+.css-btn-send:focus {
+	outline: none;
+}
+
+.css-div-textarea {
+	float: left;
+	width: 92%;
+}
+
+.css-btn-logout:focus {
+	outline: none;
+}
+
+.css-chat-summary {
+	color: #b3b3b3;
+	line-height: 2.5;
+}
+
+.css-txt-member-name {
+	line-height: 1.5;
+	cursor: pointer;
+}
+
+
+/*
+/*---Start side navigation menu ---*/
+
+.sidenav {
+	height: 100%;
+	/* 100% Full-height */
+	width: 0;
+	/* 0 width - change this with JavaScript */
+	position: fixed;
+	/* Stay in place */
+	z-index: 1;
+	/* Stay on top */
+	top: 0;
+	/* Stay at the top */
+	left: 0;
+	background-color: #f2f2f2;
+	/* Black*/
+	overflow-x: hidden;
+	/* Disable horizontal scroll */
+	padding-top: 60px;
+	/* Place content 60px from the top */
+	transition: 0.5s;
+	/* 0.5 second transition effect to slide in the sidenav */
+}
+
+
+/* The navigation menu links */
+
+.sidenav a {
+	padding: 8px 8px 8px 32px;
+	text-decoration: underline;
+	font-size: 20px;
+	color: #253939;
+	display: block;
+	transition: 0.3s;
+}
+
+
+/* When you mouse over the navigation links, change their color */
+
+.sidenav a:hover {
+	color: #253939;
+}
+
+
+/* Position and style the close button (top right corner) */
+
+.sidenav .closebtn {
+	position: absolute;
+	top: 0;
+	right: 25px;
+	font-size: 36px;
+	margin-left: 50px;
+}
+
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+
+#main {
+	transition: margin-left .5s;
+	padding: 20px;
+}
+
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+
+@media screen and (max-height: 450px) {
+	.sidenav {
+		padding-top: 15px;
+	}
+	.sidenav a {
+		font-size: 18px;
+	}
+}
+
+
+/*---End side navigation menu ---*/
+
+
+/* The Modal (background) */
+
+.modal {
+	display: none;
+	/* Hidden by default */
+	position: fixed;
+	/* Stay in place */
+	z-index: 1;
+	/* Sit on top */
+	padding-top: 100px;
+	/* Location of the box */
+	left: 0;
+	top: 0;
+	width: 50%;
+	/* Full width */
+	height: 100%;
+	/* Full height */
+	overflow: auto;
+	/* Enable scroll if needed */
+	background-color: rgb(0, 0, 0);
+	/* Fallback color */
+	background-color: rgba(0, 0, 0, 0.4);
+	/* Black w/ opacity */
+}
+
+.css-notification-modal {
+	display: none;
+	/* Hidden by default */
+	position: fixed;
+	/* Stay in place */
+	z-index: 1;
+	/* Sit on top */
+	padding-top: 100px;
+	/* Location of the box */
+	left: 64rem;
+	top: -2rem;
+	width: 50%;
+	/* Full width */
+	height: 100%;
+	/* Full height */
+	overflow: auto;
+	/* Enable scroll if needed */
+}
+
+
+/* Modal Content */
+
+.modal-content {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 5px;
+	border: 1px solid #f2f2f2 !important;
+	width: 25% !important;
+	box-shadow: 2px 2px #f2f2f2;
+}
+
+.css-notification-modal-content {
+	background-color: #fff;
+	margin: auto;
+	padding: 5px;
+	border: 1px solid #f2f2f2 !important;
+	width: 25% !important;
+	box-shadow: 2px 2px #f2f2f2;
+}
+
+
+/* The Close Button */
+
+.close {
+	color: #aaaaaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.css-userChannel {
+	cursor: pointer;
+}
+
+.css-btnAdd {
+	border: none;
+	background-color: #fff;
+}
+
+
+/*.css-channelUsers{
+    cursor:pointer;
+}*/
+
+.css-suggested-channels {
+	cursor: pointer;
+}
+
+.css-warning-msg {
+	height: 80%;
+	width: 70%;
+	margin-left: 9.5rem;
+	margin-top: 3rem;
+}
+
+.css-chat-icon-msg {
+	width: 20%;
+}
+
+.css-msg-p {
+	margin-top: 5rem;
+}
+
+.css-about-text {
+	line-height: 1.7;
+}
+
+.css-notification-content {
+	border: 1px solid #f2f2f2;
+	background-color: #fff;
+	margin-bottom: 5px;
+	color: #595959;
+	font-size: 0.8rem;
+	background-color: #f2f2f2;
+}
+
+
+/*Notification alert*/
+
+@keyframes up-right {
+	0% {
+		transform: scale(1);
+		opacity: .25
+	}
+	50% {
+		transform: scale (1, 5);
+		opacity: 1;
+	}
+	100% {
+		transform: scale(1);
+		opacity: .25;
+	}
+}
+
+.circle {
+	border-radius: 50%;
+	width: 12px;
+	height: 12px;
+	opacity: .25;
+}
+
+.green {
+	background-color: #33cc33;
+	position: absolute;
+	top: 35%;
+	left: 98.4%;
+	-webkit-animation: up-right 1s infinite;
+	-moz-animation: up-right 1s infinite;
+	-o-animation: up-right 1s infinite;
+	animation: up-right 1s infinite;
+}

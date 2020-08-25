@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+     <script src="{{ url_for('static',filename='ajax/libs/socket.io/1.3.6/socket.io.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='mainScript/mainScript.js') }}"></script>
+<!--    https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js-->
+    <title>Title</title>
+
+
+</head>
+<body>
+
+<div id="msgs">
+
+
+</div>
+
+
+<input type="text" id="myInput"/>
+<ul id="votes">
+
+</ul>
+<hr>
+<button data-vote="yes">Yes</button>
+<button data-vote="no">No</button>
+<button data-vote="maybe">Maybe</button>
+</body>
+</html>

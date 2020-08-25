@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>Chatbox</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='style/StyleSheet.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='bootstrap-4.4.1-dist/css/bootstrap.min.css') }}">
+
+    <script src="{{ url_for('static',filename='ajax/libs/socket.io/1.3.6/socket.io.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='jquery/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='ajax/libs/popper.js/1.16.0/umd/popper.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='bootstrap-4.4.1-dist/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='mainScript/mainScript.js') }}"></script>
+    <script src="{{ url_for('static',filename='bootstrap-4.4.1-dist/js/jquery.dataTables.min.js') }}"></script>
+
+</head>
+<body>
+
+     {% block body %}
+
+
+
+            {% endblock %}
+
+<footer class="jumbotron text-center">
+    <p></p>
+</footer>
+
+
+</body>
+
+</html>
